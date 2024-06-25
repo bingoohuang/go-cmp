@@ -379,6 +379,11 @@ func (s *state) compareStruct(t reflect.Type, vx, vy reflect.Value) {
 	var mayForce, mayForceInit bool
 	step := StructField{&structField{}}
 	for i := 0; i < t.NumField(); i++ {
+		cmpTag := t.Field(i).Tag.Get("cmp")
+		if cmpTag == "-" {
+			continue
+		}
+
 		step.typ = t.Field(i).Type
 		step.vx = vx.Field(i)
 		step.vy = vy.Field(i)

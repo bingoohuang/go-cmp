@@ -305,6 +305,8 @@ func ExampleOption_transformComplex() {
 
 type (
 	Gateway struct {
+		ErrCh chan error `cmp:"-"`
+
 		SSID      string
 		IPAddress net.IP
 		NetMask   net.IPMask
@@ -319,6 +321,8 @@ type (
 
 func MakeGatewayInfo() (x, y Gateway) {
 	x = Gateway{
+		ErrCh: make(chan error),
+
 		SSID:      "CoffeeShopWiFi",
 		IPAddress: net.IPv4(192, 168, 0, 1),
 		NetMask:   net.IPv4Mask(255, 255, 0, 0),
@@ -347,6 +351,8 @@ func MakeGatewayInfo() (x, y Gateway) {
 		}},
 	}
 	y = Gateway{
+		ErrCh: make(chan error),
+
 		SSID:      "CoffeeShopWiFi",
 		IPAddress: net.IPv4(192, 168, 0, 2),
 		NetMask:   net.IPv4Mask(255, 255, 0, 0),
